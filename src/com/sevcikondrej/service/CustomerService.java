@@ -1,12 +1,12 @@
-package com.sevcikondrej.DAO;
+package com.sevcikondrej.service;
 
 import com.sevcikondrej.entity.Customer;
 
 import java.util.List;
 
-public interface CustomerDAO {
+public interface CustomerService {
 
     public List<Customer> getCustomers();
 
-    void saveCustomer(Customer theCustomer);
+    void addCustomer(Customer theCustomer);
 }
