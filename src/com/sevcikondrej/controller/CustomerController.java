@@ -51,9 +51,33 @@ public class CustomerController {
 
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("customerId") int theId, Model theModel){
+        //get customer from the database
+        Customer theCustomer = customerService.getCustomer(theId);
+        //add customer as a model attribute to pre-populate
+        theModel.addAttribute("customer",theCustomer);
 
-        customerService.updateCustomer(theId);
+        return "customer-form";
+    }
+
+    @GetMapping("/delete")
+    public String deleteCustomer(@RequestParam("customerId") int theId){
+        //delete the customer
+        customerService.deleteCustomer(theId);
 
         return "redirect:/customer/list";
     }
+    @GetMapping("/search")
+    public String searchCustomers(@RequestParam("theSearchName") String theSearchName, Model theModel){
+
+        //search for customers from the service
+        List<Customer> theCustomers = customerService.searchCustomers(theSearchName);
+
+        //add the customers to the model
+        theModel.addAttribute("customers",theCustomers);
+
+        return "list-customers";
+
+    }
+
+
 }

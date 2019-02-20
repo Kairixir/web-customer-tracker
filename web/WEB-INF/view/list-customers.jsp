@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>CRM</title>
@@ -30,7 +31,11 @@
             <input type="button" value="Add Customer"
                    onclick="window.location.href='showFormForAdd'; return false;"
                 class="add-button"
-            />
+            /><br>
+                <form:form action="search" method="get">
+                    Search Customer <input type="text" name="theSearchName"/>
+                    <input type="submit" value="Search" class="add-button"/>
+                </form:form>
 
             <table>
                 <tr>
@@ -45,6 +50,9 @@
                     <c:url var="updateLink" value="/customer/showFormForUpdate">
                         <c:param name="customerId" value="${tempCustomer.id}"/>
                     </c:url>
+                    <c:url var="deleteLink" value="/customer/delete">
+                        <c:param name="customerId" value="${tempCustomer.id}"/>
+                    </c:url>
 
                     <tr>
                         <td>${tempCustomer.firstName}</td>
@@ -53,7 +61,9 @@
                         <td>
                             <%--dipsplay the update link--%>
                             <a href="${updateLink}">Update</a>
-
+                            |
+                            <%--display the delte link--%>
+                            <a href="${deleteLink}" onclick="if (!( confirm('Are you sure you want to delete ${tempCustomer.firstName} ${tempCustomer.lastName}?')))return false">Delete</a>
 
                         </td>
                         <td></td>
